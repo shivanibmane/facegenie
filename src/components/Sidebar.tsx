@@ -13,16 +13,18 @@ import {
   useGetIndustriesQuery,
   useSelectIndustryMutation,
 } from "../store/api/industriesApi";
- 
+import facegenie_logo from "../assets/facegenie_logo.png";
+import resolueteai_logo from "../assets/resoluteai_logo.png";
+
 const Sidebar = ({ onIndustryChange }) => {
   const location = useLocation();
   const { data: industries = [] } = useGetIndustriesQuery();
- 
+
   const [selectedIndustry, setSelectedIndustry] = useState("retail");
   const [selectedSubIndustry, setSelectedSubIndustry] = useState("store_analytics");
   const [selectIndustry] = useSelectIndustryMutation();
- 
- 
+
+
   useEffect(() => {
     if (selectedIndustry && selectedSubIndustry) {
       selectIndustry({
@@ -38,11 +40,11 @@ const Sidebar = ({ onIndustryChange }) => {
       });
     }
   }, [selectedIndustry, selectedSubIndustry, onIndustryChange, selectIndustry]);
- 
+
   const selectedIndustryData = industries.find(
     (industry) => industry.id === selectedIndustry
   );
- 
+
   const menuItems = [
     { icon: MonitorCog, label: "Configuration", path: "/" },
     { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
@@ -52,7 +54,7 @@ const Sidebar = ({ onIndustryChange }) => {
     { icon: Database, label: "Database", path: "/database" },
     { icon: BarChart3, label: "Insights", path: "/insights" },
   ];
- 
+
   return (
     <div className="h-screen w-64 bg-white text-[#F7493B] px-4 py-2 fixed left-0 top-0 flex flex-col justify-between">
       {/* Top Section */}
@@ -60,12 +62,12 @@ const Sidebar = ({ onIndustryChange }) => {
         {/* Branding */}
         <div className="flex flex-col items-center gap-2 mb-6">
           <img
-            src="FaceGenie Logo.png"
+            src={facegenie_logo}
             alt="Logo"
             className="w-40 h-10 object-contain"
           />
         </div>
- 
+
         {/* Industry Selection Dropdown (Commented Out) */}
         {/* <div className="mb-2 px-4">
           <label className="text-sm font-medium text-gray-700">
@@ -86,7 +88,7 @@ const Sidebar = ({ onIndustryChange }) => {
             ))}
           </select>
         </div> */}
- 
+
         {/* Sub-Industry Selection Dropdown (Commented Out) */}
         {/* {selectedIndustry && selectedIndustryData?.sub_industries?.length > 0 && (
           <div className="mb-2 px-4">
@@ -109,13 +111,13 @@ const Sidebar = ({ onIndustryChange }) => {
             </select>
           </div>
         )} */}
- 
+
         {/* Navigation Menu */}
         <nav className="space-y-2">
           {menuItems.map((item) => {
             const Icon = item.icon;
             const isActive = location.pathname === item.path;
- 
+
             return (
               <Link
                 key={item.path}
@@ -132,13 +134,13 @@ const Sidebar = ({ onIndustryChange }) => {
           })}
         </nav>
       </div>
- 
+
       {/* Bottom Logo */}
       <div className="flex justify-center">
-        <img src="LOGO 1.png" alt="Logo" className="w-40 h-20 object-contain" />
+        <img src={resolueteai_logo} alt="Logo" className="w-40 h-20 object-contain" />
       </div>
     </div>
   );
 };
- 
+
 export default Sidebar;
